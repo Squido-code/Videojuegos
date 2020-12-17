@@ -10,7 +10,7 @@ public class PresentadorListaVideojuegos implements ContratoListaVideojuegos.Pre
 
     public PresentadorListaVideojuegos(ListaVideojuegos listaVideojuegos) {
         this.listaVideojuegos = listaVideojuegos;
-        modelListaVideojuegos = new ModelListaVideojuegos(this);
+        modelListaVideojuegos = new ModelListaVideojuegos();
     }
 
     @Override

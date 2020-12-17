@@ -14,7 +14,7 @@ public interface ContratoListaVideojuegos {
 
     }
     interface Model{
-        void getjuegosWS();
+        void getjuegosWS(OnLstJuegosListener onLstJuegosListener);
         /*Reactivo*/
         interface OnLstJuegosListener{
             void onFinished(ArrayList<Videojuego> juegos);
