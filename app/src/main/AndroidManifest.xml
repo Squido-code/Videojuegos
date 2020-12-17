@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Videojuegos">
-        <activity android:name=".ListaVideojuegos"></activity>
+        <activity android:name=".listaVideojuegos.view.ListaVideojuegos"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

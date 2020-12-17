@@ -1,14 +1,12 @@
 package com.guillermo.videojuegos;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.guillermo.videojuegos.listaVideojuegos.view.ListaVideojuegos;
 
 public class MainActivity extends AppCompatActivity {
 
