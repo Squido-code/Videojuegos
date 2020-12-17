@@ -1,6 +1,4 @@
 *.iml
-*.gradle
-gradle*
 /local.properties
 /.idea/*
 .DS_Store
@@ -10,3 +8,4 @@ gradle*
 .cxx
 local.properties
 /app/src/androidTest/java/com/guillermo/videojuegos/
+
