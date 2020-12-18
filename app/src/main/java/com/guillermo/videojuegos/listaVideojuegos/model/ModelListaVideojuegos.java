@@ -2,46 +2,53 @@ package com.guillermo.videojuegos.listaVideojuegos.model;
 
 import android.os.AsyncTask;
 
+import com.guillermo.videojuegos.beans.Videojuego;
 import com.guillermo.videojuegos.listaVideojuegos.contract.ContratoListaVideojuegos;
+import com.guillermo.videojuegos.utils.Post;
 
-import java.io.IOException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.ArrayList;
 
-public class ModelListaVideojuegos implements ContratoListaVideojuegos.Model {
-
-    final Boolean resp = true;
-
+public class ModelListaVideojuegos
+        implements ContratoListaVideojuegos.Model {
+    private static final String URL = "https://api.rawg.io/api/games?platforms=18,1,7&key=0b839d953789459bba3eac8865198928";
+    private ArrayList<Videojuego> listaArrayJuegos;
+    private OnLstJuegosListener onLstJuegosListener;
 
     @Override
     public void getjuegosWS(OnLstJuegosListener onLstJuegosListener) {
-
+        this.onLstJuegosListener = onLstJuegosListener;
+        TareasegudoPlano task = new TareasegudoPlano();
+        task.execute();
     }
-}
 
-class TareasegudoPlano extends AsyncTask<String, Integer, Boolean> {
 
-    @Override
-    protected Boolean doInBackground(String... strings) {
-        OkHttpClient client = new OkHttpClient();
+    class TareasegudoPlano extends AsyncTask<String, Integer, Boolean> {
 
-        Request request = new Request.Builder()
-                .url("https://rawg-video-games-database.p.rapidapi.com/games")
-                .get()
-                .addHeader("x-rapidapi-key", "13ff077075mshe0fedee2c2a91e3p146981jsn04ac3a5574e4")
-                .addHeader("x-rapidapi-host", "rawg-video-games-database.p.rapidapi.com")
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            Post post = new Post();
+            try {
+                JSONObject objectMovies = post.getServerDataGetObject(URL);
+                JSONArray listaJuegos = objectMovies.getJSONArray("results");
+                listaArrayJuegos = Videojuego.getArrayListFromJSON(listaJuegos);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return true;
         }
 
-        return null;
+        @Override
+        protected void onPostExecute(Boolean resp) {
+            if (listaArrayJuegos != null && listaArrayJuegos.size() > 0) {
+                onLstJuegosListener.onResolve(listaArrayJuegos);
+            } else {
+                onLstJuegosListener.onReject("Error al traer los datos del servidor");
+            }
+        }
     }
 }
-
 

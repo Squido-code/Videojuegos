@@ -1,4 +1,4 @@
-package com.guillermo.videojuegos.listaVideojuegos.utils;
+package com.guillermo.videojuegos.utils;
 
 import android.util.Log;
 
@@ -182,5 +182,6 @@ public class Post {
         conectaGet(URL);
         return getRespuestaPostEnJson();
     }
+
 }
 
