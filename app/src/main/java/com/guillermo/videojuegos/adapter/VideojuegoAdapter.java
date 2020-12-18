@@ -1,5 +1,7 @@
 package com.guillermo.videojuegos.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.guillermo.videojuegos.R;
 import com.guillermo.videojuegos.beans.Videojuego;
+import com.guillermo.videojuegos.fichaDescriptiva.FichaDescriptiva;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,9 +21,11 @@ import java.util.ArrayList;
 
 public class VideojuegoAdapter extends RecyclerView.Adapter<VideojuegoAdapter.JuegoViewHolder> {
     private final ArrayList<Videojuego> listaJuegos;
+    private final Context context;
 
-    public VideojuegoAdapter(ArrayList<Videojuego> juegos) {
+    public VideojuegoAdapter(ArrayList<Videojuego> juegos, Context context) {
         this.listaJuegos = juegos;
+        this.context = context;
     }
 
     @NonNull
@@ -34,9 +39,13 @@ public class VideojuegoAdapter extends RecyclerView.Adapter<VideojuegoAdapter.Ju
 
     @Override
     public void onBindViewHolder(@NonNull JuegoViewHolder holder, int position) {
-        final Videojuego videojuego = listaJuegos.get(position);
+        Videojuego videojuego = listaJuegos.get(position);
         holder.nombre.setText(videojuego.getNombre());
         Picasso.get().load(videojuego.getImagen()).into(holder.imagen);
+        holder.nombre.setOnClickListener((view) -> {
+            Intent navegar = new Intent(
+                    context, FichaDescriptiva.class);
+        });
     }
 
     @Override
