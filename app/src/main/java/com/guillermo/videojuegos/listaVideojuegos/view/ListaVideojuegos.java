@@ -28,7 +28,6 @@ public class ListaVideojuegos extends AppCompatActivity implements ContratoLista
         setContentView(R.layout.activity_lista_videojuegos);
         presentadorListaVideojuegos = new PresentadorListaVideojuegos(this);
         presentadorListaVideojuegos.getJuegos();
-
     }
 
 

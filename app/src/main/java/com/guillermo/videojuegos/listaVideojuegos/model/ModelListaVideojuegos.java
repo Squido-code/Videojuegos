@@ -14,9 +14,10 @@ import java.util.ArrayList;
 
 public class ModelListaVideojuegos
         implements ContratoListaVideojuegos.Model {
-    private static final String URL = "https://api.rawg.io/api/games?platforms=18,1,7&key=0b839d953789459bba3eac8865198928";
+    private final String URL = "https://api.rawg.io/api/games?platforms=4&key=0b839d953789459bba3eac8865198928";
     private ArrayList<Videojuego> listaArrayJuegos;
     private OnLstJuegosListener onLstJuegosListener;
+
 
     @Override
     public void getjuegosWS(OnLstJuegosListener onLstJuegosListener) {

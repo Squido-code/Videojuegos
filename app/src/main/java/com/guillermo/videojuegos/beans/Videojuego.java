@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Videojuego {
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String DESCRIPTION = "description";
     private static final String BACKGROUND_IMAGE = "background_image";
     private int id;
     private String nombre;
@@ -29,7 +28,6 @@ public class Videojuego {
 
                 videojuego.setId(json_data.getInt(ID));
                 videojuego.setNombre(json_data.getString(NAME));
-//                videojuego.setDescription(json_data.getString(DESCRIPTION));
                 videojuego.setImagen(json_data.getString(BACKGROUND_IMAGE));
 
                 lista.add(videojuego);

@@ -42,11 +42,6 @@ public class VideojuegoAdapter extends RecyclerView.Adapter<VideojuegoAdapter.Ju
         Videojuego videojuego = listaJuegos.get(position);
         holder.nombre.setText(videojuego.getNombre());
         Picasso.get().load(videojuego.getImagen()).into(holder.imagen);
-//        holder.imagen.setOnClickListener((view) -> {
-//            Intent navegar = new Intent(context, FichaDescriptiva.class);
-//            navegar.putExtra("juego Id",videojuego.getId());
-//            context.startActivity(navegar);
-//        });
         holder.imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
