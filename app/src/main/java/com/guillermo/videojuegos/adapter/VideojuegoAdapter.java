@@ -36,12 +36,12 @@ public class VideojuegoAdapter extends RecyclerView.Adapter<VideojuegoAdapter.Ju
     public void onBindViewHolder(@NonNull JuegoViewHolder holder, int position) {
         final Videojuego videojuego = listaJuegos.get(position);
         holder.nombre.setText(videojuego.getNombre());
-        Picasso.get().load("https://media.rawg.io/media/games/84d/84da2ac3fdfc6507807a1808595afb12.jpg").into(holder.imagen);
+        Picasso.get().load(videojuego.getImagen()).into(holder.imagen);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listaJuegos.size();
     }
 
     public static class JuegoViewHolder extends RecyclerView.ViewHolder {
