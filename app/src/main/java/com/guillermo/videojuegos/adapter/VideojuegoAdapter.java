@@ -32,9 +32,9 @@ public class VideojuegoAdapter extends RecyclerView.Adapter<VideojuegoAdapter.Ju
     @Override
     public JuegoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_videojuego, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_videojuego, parent, false);
 
-        return new JuegoViewHolder(v);
+        return new JuegoViewHolder(view);
     }
 
     @Override
@@ -42,9 +42,18 @@ public class VideojuegoAdapter extends RecyclerView.Adapter<VideojuegoAdapter.Ju
         Videojuego videojuego = listaJuegos.get(position);
         holder.nombre.setText(videojuego.getNombre());
         Picasso.get().load(videojuego.getImagen()).into(holder.imagen);
-        holder.nombre.setOnClickListener((view) -> {
-            Intent navegar = new Intent(
-                    context, FichaDescriptiva.class);
+//        holder.imagen.setOnClickListener((view) -> {
+//            Intent navegar = new Intent(context, FichaDescriptiva.class);
+//            navegar.putExtra("juego Id",videojuego.getId());
+//            context.startActivity(navegar);
+//        });
+        holder.imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FichaDescriptiva.class);
+                intent.putExtra("juego_id", videojuego.getNombre());
+                context.startActivity(intent);
+            }
         });
     }
 
