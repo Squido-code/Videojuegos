@@ -1,21 +1,21 @@
-package com.guillermo.videojuegos.fichaDescriptiva;
+package com.guillermo.videojuegos.fichaDescriptiva.view;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.guillermo.videojuegos.R;
 import com.guillermo.videojuegos.beans.Ficha;
 import com.guillermo.videojuegos.fichaDescriptiva.contract.ContratoFichaDescriptiva;
 import com.guillermo.videojuegos.fichaDescriptiva.presenter.PresenterFichaDescriptiva;
+import com.squareup.picasso.Picasso;
 
 public class FichaDescriptiva extends AppCompatActivity implements ContratoFichaDescriptiva.View {
     private String juegoId;
     private PresenterFichaDescriptiva presenterFichaDescriptiva;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class FichaDescriptiva extends AppCompatActivity implements ContratoFicha
         getIncomingIntent();
         presenterFichaDescriptiva = new PresenterFichaDescriptiva(this);
         presenterFichaDescriptiva.getFicha(juegoId);
+
     }
 
     private void getIncomingIntent() {
@@ -34,9 +35,22 @@ public class FichaDescriptiva extends AppCompatActivity implements ContratoFicha
         }
     }
 
-    @Override
-    public void success(Ficha fichas) {
+    private void setFicha(String urlImagen, String nombre, String descripcion) {
+        TextView tvNombreFicha = findViewById(R.id.txtNombreFicha);
+        tvNombreFicha.setText(nombre);
+        TextView tvDescripcionFicha = findViewById(R.id.txtdescription);
+        tvDescripcionFicha.setText(descripcion);
 
+        ImageView ivFicha = findViewById(R.id.imagenVideoJuegoFicha);
+        Picasso.get().load(urlImagen).into(ivFicha);
+    }
+
+    @Override
+    public void success(Ficha ficha) {
+        String nombre = ficha.getNombre();
+        String descripcion = ficha.getDescription();
+        String urlImagen = ficha.getUrlImagen();
+        setFicha(urlImagen, nombre, descripcion);
     }
 
     @Override

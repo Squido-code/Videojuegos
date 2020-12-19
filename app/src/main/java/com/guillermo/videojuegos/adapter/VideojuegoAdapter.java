@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.guillermo.videojuegos.R;
 import com.guillermo.videojuegos.beans.Videojuego;
-import com.guillermo.videojuegos.fichaDescriptiva.FichaDescriptiva;
+import com.guillermo.videojuegos.fichaDescriptiva.view.FichaDescriptiva;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
