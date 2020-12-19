@@ -1,6 +1,10 @@
 package com.guillermo.videojuegos.listaVideojuegos.view;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,12 +31,25 @@ public class ListaVideojuegos extends AppCompatActivity implements ContratoLista
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_videojuegos);
         presentadorListaVideojuegos = new PresentadorListaVideojuegos(this);
-        presentadorListaVideojuegos.getJuegos();
+        presentadorListaVideojuegos.getJuegos(false);
     }
 
 
     @Override
     public void success(ArrayList<Videojuego> juegos) {
+        /*filtro*/
+        filtrado();
+
+        /*lista juegos*/
+        listarjuegos(juegos);
+    }
+
+    @Override
+    public void error(String mensage) {
+        Toast.makeText(this, "error al mostrar los datos", Toast.LENGTH_SHORT).show();
+    }
+
+    public void listarjuegos(ArrayList<Videojuego> juegos) {
         recyclerView = findViewById(R.id.recyclerVideojuegos);
         recyclerView.setHasFixedSize(true);
 
@@ -40,12 +57,35 @@ public class ListaVideojuegos extends AppCompatActivity implements ContratoLista
         recyclerView.setLayoutManager(layoutManager);
         VideojuegoAdapter adapter = new VideojuegoAdapter(juegos, this);
         recyclerView.setAdapter(adapter);
-
     }
 
-    @Override
-    public void error(String mensage) {
-        Toast.makeText(this, "error al mostrar los datos", Toast.LENGTH_SHORT).show();
+    public void filtrado() {
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        String[] generos = new String[]{"Filtro:", "acción", "aventura", "RPG", "Estrategia"};
+        ArrayAdapter<String> adapterFiltro = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, generos);
+        adapterFiltro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapterFiltro);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView adapter, View v, int i, long lng) {
+                String selecteditem = adapter.getItemAtPosition(i).toString();
+                Boolean isFiltrado = selecteditem.equals("Filtro:");
+                if (isFiltrado) {
+                    return;
+                } else {
+                    presentadorListaVideojuegos.setFiltro(selecteditem);
+                    presentadorListaVideojuegos.getJuegos(true);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                return;
+            }
+        });
     }
 
 }
