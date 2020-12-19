@@ -10,7 +10,7 @@ public class Videojuego {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String BACKGROUND_IMAGE = "background_image";
-    private int id;
+    private String id;
     private String nombre;
     private String description;
     private String imagen;
@@ -26,7 +26,7 @@ public class Videojuego {
                 JSONObject json_data = listaJuegos.getJSONObject(i);
                 Videojuego videojuego = new Videojuego();
 
-                videojuego.setId(json_data.getInt(ID));
+                videojuego.setId(json_data.getString(ID));
                 videojuego.setNombre(json_data.getString(NAME));
                 videojuego.setImagen(json_data.getString(BACKGROUND_IMAGE));
 
@@ -38,11 +38,11 @@ public class Videojuego {
         return lista;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

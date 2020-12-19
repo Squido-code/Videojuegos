@@ -33,8 +33,8 @@ public class ModelListaVideojuegos
         protected Boolean doInBackground(String... strings) {
             Post post = new Post();
             try {
-                JSONObject objectMovies = post.getServerDataGetObject(URL);
-                JSONArray listaJuegos = objectMovies.getJSONArray("results");
+                JSONObject objectJuegos = post.getServerDataGetObject(URL);
+                JSONArray listaJuegos = objectJuegos.getJSONArray("results");
                 listaArrayJuegos = Videojuego.getArrayListFromJSON(listaJuegos);
             } catch (JSONException e) {
                 e.printStackTrace();

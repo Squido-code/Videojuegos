@@ -1,33 +1,30 @@
 package com.guillermo.videojuegos.fichaDescriptiva.presenter;
 
 import com.guillermo.videojuegos.beans.Ficha;
-import com.guillermo.videojuegos.fichaDescriptiva.FichaDescriptiva;
 import com.guillermo.videojuegos.fichaDescriptiva.contract.ContratoFichaDescriptiva;
 import com.guillermo.videojuegos.fichaDescriptiva.model.ModelFichaDescriptiva;
 
-import java.util.ArrayList;
-
 public class PresenterFichaDescriptiva implements ContratoFichaDescriptiva.Presenter {
-    private final FichaDescriptiva fichaDescriptiva;
-    private final String idFicha;
-    private ModelFichaDescriptiva modelFichaDescriptiva;
+    private final ContratoFichaDescriptiva.View viewFicha;
+    private final ModelFichaDescriptiva modelFichaDescriptiva;
 
-    public PresenterFichaDescriptiva(FichaDescriptiva fichaDescriptiva) {
-        this.fichaDescriptiva = fichaDescriptiva;
-        idFicha = fichaDescriptiva.getJuegoId();
+    public PresenterFichaDescriptiva(ContratoFichaDescriptiva.View vistaFicha) {
+        this.viewFicha = vistaFicha;
+        this.modelFichaDescriptiva = new ModelFichaDescriptiva();
     }
 
+
     @Override
-    public void getFicha() {
+    public void getFicha(String idFicha) {
         modelFichaDescriptiva.getDescripcionWS(new ContratoFichaDescriptiva.Model.OnLstFichaListener() {
             @Override
-            public void onResolve(ArrayList<Ficha> listaFicha) {
-                fichaDescriptiva.success(listaFicha);
+            public void onResolve(Ficha fichaCompleta) {
+                viewFicha.success(fichaCompleta);
             }
 
             @Override
             public void onReject(String error) {
-                fichaDescriptiva.error("Error al tratar los datos");
+                viewFicha.error("Error al acceder al los datos");
             }
         }, idFicha);
     }

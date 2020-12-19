@@ -11,8 +11,6 @@ import com.guillermo.videojuegos.beans.Ficha;
 import com.guillermo.videojuegos.fichaDescriptiva.contract.ContratoFichaDescriptiva;
 import com.guillermo.videojuegos.fichaDescriptiva.presenter.PresenterFichaDescriptiva;
 
-import java.util.ArrayList;
-
 public class FichaDescriptiva extends AppCompatActivity implements ContratoFichaDescriptiva.View {
     private String juegoId;
     private PresenterFichaDescriptiva presenterFichaDescriptiva;
@@ -23,20 +21,21 @@ public class FichaDescriptiva extends AppCompatActivity implements ContratoFicha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_descriptiva);
+        getIncomingIntent();
         presenterFichaDescriptiva = new PresenterFichaDescriptiva(this);
-        presenterFichaDescriptiva.getFicha();
+        presenterFichaDescriptiva.getFicha(juegoId);
     }
 
     private void getIncomingIntent() {
         Boolean isComplete = getIntent().hasExtra("juego_id");
         if (isComplete) {
-            String idJuego = getIntent().getStringExtra("nombre");
+            String idJuego = getIntent().getStringExtra("juego_id");
             this.juegoId = idJuego;
         }
     }
 
     @Override
-    public void success(ArrayList<Ficha> fichas) {
+    public void success(Ficha fichas) {
 
     }
 

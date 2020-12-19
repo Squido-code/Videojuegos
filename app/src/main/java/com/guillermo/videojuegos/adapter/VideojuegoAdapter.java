@@ -46,7 +46,7 @@ public class VideojuegoAdapter extends RecyclerView.Adapter<VideojuegoAdapter.Ju
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, FichaDescriptiva.class);
-                intent.putExtra("juego_id", videojuego.getNombre());
+                intent.putExtra("juego_id", videojuego.getId());
                 context.startActivity(intent);
             }
         });
